@@ -1,0 +1,21 @@
+D34 . izquierda
+D35 . izq enfrente
+D32 . der enfrente
+D33 . derecha
+
+-------------------------------
+
+
+D23 * arrancador
+D22 * 80 nk
+D25 * linea izq
+D26 * linea der
+________________
+
+D21 # motor2 B
+D19 # motor2 A
+
+D18 # motor1 B
+D5  # motor1 A
+
+
