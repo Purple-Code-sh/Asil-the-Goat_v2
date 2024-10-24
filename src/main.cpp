@@ -70,39 +70,39 @@ void stop()
   ledcWrite(ledChannel_R2, 0);
 }
 
-void movement(String direction, int dutyCycle, uint32_t workTime = 0)
+void movement(String direction, int dutyCycle_L, int dutyCycle_R, uint32_t workTime = 0)
 {
   if (direction == "forward")
   {
-    ledcWrite(ledChannel_L1, dutyCycle);
+    ledcWrite(ledChannel_L1, dutyCycle_L);
     ledcWrite(ledChannel_L2, 0);
 
-    ledcWrite(ledChannel_R1, dutyCycle);
+    ledcWrite(ledChannel_R1, dutyCycle_R);
     ledcWrite(ledChannel_R2, 0);
   }
   else if (direction == "left")
   {
     ledcWrite(ledChannel_L1, 0);
-    ledcWrite(ledChannel_L2, dutyCycle);
+    ledcWrite(ledChannel_L2, dutyCycle_L);
 
-    ledcWrite(ledChannel_R1, dutyCycle);
+    ledcWrite(ledChannel_R1, dutyCycle_R);
     ledcWrite(ledChannel_R2, 0);
   }
   else if (direction == "right")
   {
-    ledcWrite(ledChannel_L1, dutyCycle);
+    ledcWrite(ledChannel_L1, dutyCycle_L);
     ledcWrite(ledChannel_L2, 0);
 
     ledcWrite(ledChannel_R1, 0);
-    ledcWrite(ledChannel_R2, dutyCycle);
+    ledcWrite(ledChannel_R2, dutyCycle_R);
   }
   else if (direction == "backward")
   {
     ledcWrite(ledChannel_L1, 0);
-    ledcWrite(ledChannel_L2, dutyCycle);
+    ledcWrite(ledChannel_L2, dutyCycle_L);
 
     ledcWrite(ledChannel_R1, 0);
-    ledcWrite(ledChannel_R2, dutyCycle);
+    ledcWrite(ledChannel_R2, dutyCycle_R);
   }
 
   if (workTime > 0)
@@ -139,7 +139,7 @@ byte detect()
 void loop()
 {
 start:
-  if (digitalRead(starter) == HIGH)
+  if (digitalRead(starter) == LOW)
   {
     if (digitalRead(ls_Left) == LOW)
     {
@@ -161,40 +161,40 @@ start:
       {
         for (size_t i = 50; i < 200; i += 15)
         {
-          movement("forward", i);
+          movement("forward", i, i);
           wentForward = true;
         }
       }
-      movement("forward", 255);
+      movement("forward", 255, 255);
       goto start;
     }
     else if (sensorState == 0b01000000)
     {
-      movement("left", 70);
+      movement("left", 70, 70);
       wentForward = false;
       goto start;
     }
     else if (sensorState == 0b00100000)
     {
-      movement("right", 60);
+      movement("right", 60, 60);
       wentForward = false;
       goto start;
     }
     else if (sensorState == 0b10000000)
     {
-      movement("left", 120);
+      movement("left", 120, 120);
       wentForward = false;
       goto start;
     }
     else if (sensorState == 0b00010000)
     {
-      movement("right", 120);
+      movement("right", 120, 120);
       wentForward = false;
       goto start;
     }
     else
     {
-      movement("forward", 13);
+      movement("forward", 13, 13);
       wentForward = false;
       goto start;
     }

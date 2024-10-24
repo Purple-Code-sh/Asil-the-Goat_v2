@@ -4,7 +4,7 @@ D32 . der enfrente
 D33 . derecha
 
 -------------------------------
-
+	
 
 D23 * arrancador
 D22 * 80 nk
